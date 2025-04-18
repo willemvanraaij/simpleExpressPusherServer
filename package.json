@@ -2,7 +2,6 @@
   "dependencies": {
     "@netlify/functions": "^3.1.2",
     "@types/express": "^5.0.1",
-    "body-parser": "^2.2.0",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "netlify-cli": "^20.0.2",

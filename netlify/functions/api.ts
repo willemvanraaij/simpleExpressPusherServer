@@ -2,13 +2,11 @@ require("dotenv").config();
 import express from "express";
 import serverless from "serverless-http";
 
-import bodyParser from "body-parser";
 import Pusher from "pusher";
 
 const port = process.env.PORT || 4000;
 
 const api = express();
-const router = express.Router();
 
 const pusher = new Pusher({
   appId: process.env.PUSHER_APP_ID || "",
@@ -17,8 +15,8 @@ const pusher = new Pusher({
   cluster: "eu",
 });
 
-api.use(bodyParser.json());
-api.use(bodyParser.urlencoded({ extended: false }));
+api.use(express.json());
+api.use(express.urlencoded({ extended: false }));
 api.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -27,6 +25,7 @@ api.use((req, res, next) => {
   );
   next();
 });
+const router = express.Router();
 
 router.post("/ping", (req, res) => {
   const { lat, lng, userId, username, info } = req.body;
