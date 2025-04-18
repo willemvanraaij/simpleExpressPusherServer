@@ -16,13 +16,14 @@ const pusher = new Pusher({
 });
 
 api.use(express.json());
-api.use(express.urlencoded({ extended: false }));
+api.use(express.urlencoded({ extended: true }));
 api.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
+  res.header("Content-Header", "application/json");
   next();
 });
 const router = express.Router();
