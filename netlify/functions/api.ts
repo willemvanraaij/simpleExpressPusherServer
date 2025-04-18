@@ -16,14 +16,14 @@ const pusher = new Pusher({
 });
 
 api.use(express.json());
-//api.use(express.urlencoded({ extended: true }));
+api.use(express.urlencoded({ extended: true }));
 api.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
-  res.header("Content-Header", "application/json");
+  res.header("Content-Type", "application/json");
   next();
 });
 const router = express.Router();
@@ -37,19 +37,25 @@ router.post("/ping", (req, res) => {
     username,
     info,
   };
-  pusher.trigger("location", "ping", data);
+  if (data.userId) {
+    pusher.trigger("location", "ping", data);
+  }
   res.json(data);
 });
 router.post("/remove", (req, res) => {
   const { userId } = req.body;
   const data = { userId };
-  pusher.trigger("location", "remove", data);
+  if (data.userId) {
+    pusher.trigger("location", "remove", data);
+  }
   res.json(data);
 });
 router.post("/hello", (req, res) => {
   const { userId } = req.body;
   const data = { userId };
-  pusher.trigger("location", "hello", data);
+  if (data.userId) {
+    pusher.trigger("location", "hello", data);
+  }
   res.json(data);
 });
 
